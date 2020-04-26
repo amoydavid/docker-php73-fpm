@@ -24,6 +24,7 @@ RUN apk add --no-cache gettext libpng sqlite libxml2 libjpeg-turbo freetype libm
     mkdir -p /usr/src/php/ext && \
     mv php-memcached-3.1.3 /usr/src/php/ext/memcached && \
     docker-php-ext-install memcached && \
+    apk add m4 autoconf make gcc g++ linux-headers && pecl install swoole && docker-php-ext-enable swoole && \
     apk del .build-dependencies 
 
 
