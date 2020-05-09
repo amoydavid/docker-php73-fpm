@@ -28,6 +28,15 @@ RUN apk add --no-cache gettext libpng sqlite libxml2 libjpeg-turbo freetype libm
     apk del .build-dependencies 
 
 
+ARG USERID=1000
+ARG GROUPID=1000
+
+ENV DOCKER_UID=${USERID} \
+    DOCKER_GID=${GROUPID}
+
+RUN apk add --update bash shadow git bash-completion bash-doc && \
+    usermod -u ${DOCKER_UID} www-data && groupmod -g ${DOCKER_GID} www-data && \
+    rm -rf /var/cache/apk/*
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod u+x /docker-entrypoint.sh
